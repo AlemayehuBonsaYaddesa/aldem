@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuratu Restaurant Inventory</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            grid-column: 1 / span 3;
+        }
+        nav {
+            background-color: #444;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            grid-column: 1 / span 3;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+        }
+        aside {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            grid-column: 1 / span 1;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+       
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kuratu Restaurant</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Inventory</a>
+        <a href="#">Sales</a>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+    </nav>
+    <div class="container">
+        <aside>
+            <h2>Today's Summary</h2>
+            <table id="summary-table">
+                <tr>
+                    <th>Total Available Items</th>
+                    <td id="total-items">100</td>
+                </tr>
+                <tr>
+                    <th>Sold Items</th>
+                    <td id="sold-items">20</td>
+                </tr>
+                <tr>
+                    <th>Remaining Items</th>
+                    <td id="remaining-items">80</td>
+                </tr>
+                <tr>
+                    <th>Today's Transactions</th>
+                    <td id="today-transactions">500 Birr</td>
+                </tr>
+            </table>
+            <button onclick="printTransactions()">Print Today's Transactions</button>
+        </aside>
+        <main>
+            <h2>Today's Transactions</h2>
+            <table id="transaction-table">
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Item 1</td>
+                    <td>20.00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Item 2</td>
+                    <td>30.00</td>
+                </tr>
+                <!-- Add more transaction rows here -->
+            </table>
+        </main>
+    </div>
+    <footer>
+        <p>&copy; 2024 Kuratu Restaurant. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simulated data for demonstration
+        let totalItems = 100;
+        let soldItems = 20;
+        let remainingItems = totalItems - soldItems;
+        let todayTransactions = 500;
+
+        // Update table with data
+        function updateSummary() {
+            document.getElementById('total-items').textContent = totalItems;
+            document.getElementById('sold-items').textContent = soldItems;
+            document.getElementById('remaining-items').textContent = remainingItems;
+            document.getElementById('today-transactions').textContent = `${todayTransactions.toFixed(2)} Birr`;
+        }
+
+        // Update data and table periodically (simulated)
+        setInterval(() => {
+            soldItems += Math.floor(Math.random() * 5); // Randomly add sold items
+            remainingItems = totalItems - soldItems;
+            todayTransactions += Math.floor(Math.random() * 100); // Randomly add transaction amount
+            updateSummary();
+        }, 5000); // Update every 5 seconds
+
+        // Initial update
+        updateSummary();
+
+        // Print today's transactions
+        function printTransactions() {
+            const mainContent = document.querySelector('main');
+            const printContents = mainContent.innerHTML;
+            const originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            updateSummary(); // Restore the summary after printing
+        }
+    </script>
+</body>
+</html>
